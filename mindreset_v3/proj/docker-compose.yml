@@ -1,0 +1,20 @@
+services:
+  mindreset:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      MINDRESET_DB: /data/mindreset.db
+      MINDRESET_MODEL: /app/mindreset_modelo_prototipo.joblib
+      MINDRESET_TZ: ${MINDRESET_TZ:-America/Lima}
+      # Google Sheets (opcional): ver README
+      MINDRESET_SHEETS_URL: ${MINDRESET_SHEETS_URL:-}
+      MINDRESET_SHEETS_SECRET: ${MINDRESET_SHEETS_SECRET:-}
+      # Chatbot Gemini (opcional): sin clave funciona en «modo básico»
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      GEMINI_MODEL: ${GEMINI_MODEL:-gemini-2.5-flash}
+    volumes:
+      - mindreset_data:/data
+    restart: unless-stopped
+volumes:
+  mindreset_data:

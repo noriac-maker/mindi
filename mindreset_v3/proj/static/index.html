@@ -1,0 +1,653 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#6A3EC8">
+<script>try{document.documentElement.dataset.theme=localStorage.getItem("mr_theme")||"auto"}catch(e){document.documentElement.dataset.theme="auto"}</script>
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" href="/static/icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,500..700,100&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<title>MindReset | Bienestar estudiantil</title>
+<style>
+:root{
+  --bg:#F8F5FC; --surface:#fff; --ink:#2A2540; --muted:#6B6684; --line:#E9E3F3;
+  --lav:#EFE9FD; --lav2:#E0D6FA; --lav-s:#B9A7F0; --lav-ink:#54429E;
+  --mint:#DDF3E8; --mint-s:#9FD9BD; --mint-ink:#26704F;
+  --sky:#DCEBFB; --sky-s:#A7CBF0; --sky-ink:#2F5F95;
+  --butter:#FFF2CC; --butter-s:#F3D98A; --butter-ink:#7A5B08;
+  --peach:#FFE4D5; --peach-s:#F6BFA3; --peach-ink:#98481F;
+  --rose:#FBDDE6; --rose-s:#EFA9BF; --rose-ink:#9B3556;
+  --r:20px; --shadow:0 10px 30px rgba(120,100,180,.10);
+  --display:'Fraunces',Georgia,'Times New Roman',serif; --body:'Nunito',ui-rounded,system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 var(--body);padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid #7C66D6;outline-offset:2px;border-radius:10px}
+h1,h2,h3{font-family:var(--display);font-weight:600;margin:0;letter-spacing:-.01em;line-height:1.2;font-variation-settings:"SOFT" 100}
+p{margin:0}
+.hidden{display:none!important}
+.muted{color:var(--muted)} .small{font-size:13.5px}
+
+.shell{max-width:1200px;margin:auto;padding:18px 20px 40px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:18px}
+.brand{display:flex;align-items:center;gap:11px}
+.brand b{font-family:var(--display);font-size:22px;font-weight:600;letter-spacing:-.01em}
+.brand small{display:block;color:var(--muted);font-size:12.5px;margin-top:-2px}
+.logo{width:42px;height:42px;border-radius:14px;background:var(--lav2);display:grid;place-items:center}
+.who{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted)}
+.layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:22px;align-items:start}
+.layout.focus{grid-template-columns:minmax(0,1fr)} .layout.focus .side{display:none}
+.side{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px;position:sticky;top:14px}
+.nav{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:none;border:0;border-radius:14px;padding:12px 14px;color:var(--muted);font-weight:700;margin:2px 0}
+.nav:hover{background:var(--lav)} .nav.on{background:var(--lav2);color:var(--lav-ink)}
+.nav svg{flex:none}
+.side .note{font-size:12.5px;color:var(--muted);padding:12px 8px 4px;border-top:1px solid var(--line);margin-top:10px}
+.main{min-width:0}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px;box-shadow:var(--shadow);margin-bottom:18px}
+.card h2{font-size:21px;margin-bottom:6px} .card h3{font-size:18px;margin-bottom:10px}
+.pagehead{margin:4px 0 18px} .pagehead h1{font-size:30px} .pagehead p{color:var(--muted);margin-top:4px}
+.footer{font-size:12.5px;color:var(--muted);text-align:center;margin:26px 0 6px}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:14px;padding:12px 20px;font-weight:800;background:var(--lav-s);color:var(--ink);transition:background .15s,transform .05s}
+.btn:hover{background:#A793EA} .btn:active{transform:translateY(1px)}
+.btn.soft{background:var(--lav2);color:var(--lav-ink)} .btn.soft:hover{background:#D5C8F7}
+.btn.ghost{background:transparent;color:var(--lav-ink);border:2px solid var(--lav2)} .btn.ghost:hover{background:var(--lav)}
+.btn.mint{background:var(--mint-s);color:#16452F} .btn.mint:hover{background:#8ACDAA}
+.btn.sm{padding:8px 14px;font-size:14px;border-radius:12px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.field{margin:14px 0} .field label{display:block;font-weight:700;margin-bottom:6px;font-size:15px}
+.field input,.field select,.field textarea,.input{width:100%;border:2px solid var(--line);border-radius:14px;padding:11px 14px;background:#fff;transition:border-color .15s}
+.field input:focus,.field select:focus,.field textarea:focus,.input:focus{border-color:var(--lav-s);outline:none;box-shadow:0 0 0 4px rgba(185,167,240,.25)}
+.row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 16px}
+.notice{padding:12px 16px;border-radius:14px;background:var(--butter);color:var(--butter-ink);font-size:14px;margin:14px 0}
+.notice.err{background:var(--rose);color:var(--rose-ink)} .notice.ok{background:var(--mint);color:var(--mint-ink)} .notice.info{background:var(--sky);color:var(--sky-ink)}
+.check{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--muted);margin:14px 0}
+.check input{width:20px;height:20px;margin-top:2px;accent-color:#7C66D6;flex:none}
+
+.pill{display:inline-flex;align-items:center;gap:6px;padding:4px 11px;border-radius:99px;font-size:13px;font-weight:800;white-space:nowrap}
+.pill.c0,.pill.bajo{background:var(--mint);color:var(--mint-ink)}
+.pill.c1{background:var(--sky);color:var(--sky-ink)} .pill.medio{background:var(--butter);color:var(--butter-ink)}
+.pill.c2,.pill.alto{background:var(--rose);color:var(--rose-ink)}
+.pill.ask{background:var(--peach);color:var(--peach-ink)} .pill.none{background:var(--lav);color:var(--muted)}
+.avatar{flex:none;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:14px}
+.avatar.lg{width:64px;height:64px;font-size:22px}
+.av0{background:var(--lav2);color:var(--lav-ink)} .av1{background:var(--mint);color:var(--mint-ink)} .av2{background:var(--peach);color:var(--peach-ink)}
+.av3{background:var(--sky);color:var(--sky-ink)} .av4{background:var(--butter);color:var(--butter-ink)} .av5{background:var(--rose);color:var(--rose-ink)}
+
+.auth{display:grid;grid-template-columns:1.1fr .9fr;gap:34px;align-items:center;min-height:calc(100vh - 150px)}
+.hero h1{font-size:clamp(34px,5vw,54px);line-height:1.08}
+.hero p.lead{font-size:18px;color:var(--muted);margin:14px 0 24px;max-width:46ch}
+.bubbles{display:flex;flex-direction:column;gap:12px;max-width:430px}
+.bubble{display:flex;gap:12px;align-items:center;padding:14px 16px;border-radius:20px;font-weight:600;font-size:15px}
+.bubble:nth-child(1){background:var(--mint);color:var(--mint-ink);margin-right:44px}
+.bubble:nth-child(2){background:var(--lav);color:var(--lav-ink);margin-left:28px}
+.bubble:nth-child(3){background:var(--peach);color:var(--peach-ink);margin-right:20px}
+.authcard{padding:28px}
+.tabs{display:flex;gap:6px;background:var(--lav);padding:5px;border-radius:16px;margin-bottom:18px}
+.tabs button{flex:1;border:0;background:none;padding:10px;border-radius:12px;font-weight:800;color:var(--muted)}
+.tabs button.on{background:#fff;color:var(--lav-ink);box-shadow:0 2px 8px rgba(120,100,180,.15)}
+
+.wizard{max-width:720px;margin:0 auto}
+.steps{display:flex;gap:6px;margin-bottom:16px}
+.seg{flex:1;height:8px;border-radius:99px;background:var(--lav2)} .seg.done{background:var(--lav-s)} .seg.now{background:var(--peach-s)}
+.qlabel{font-size:14px;color:var(--muted);font-weight:700;margin-bottom:8px}
+.qtitle{font-size:clamp(22px,3.4vw,29px);margin-bottom:8px}
+.qhelp{color:var(--muted);margin-bottom:18px}
+.opts{display:grid;gap:10px}
+.opt{position:relative;display:flex;gap:14px;align-items:center;padding:14px 16px;border:2px solid var(--line);border-radius:18px;cursor:pointer;background:#fff;transition:border-color .15s,background .15s}
+.opt:hover{background:var(--lav);border-color:var(--lav2)}
+.opt input{position:absolute;opacity:0;pointer-events:none}
+.opt .dot{flex:none;width:24px;height:24px;border-radius:50%;border:2px solid #CFC4EC;display:grid;place-items:center;background:#fff}
+.opt .dot::after{content:"";width:12px;height:12px;border-radius:50%;background:transparent}
+.opt b{display:block;font-size:16.5px} .opt small{display:block;color:var(--muted);font-size:14px;line-height:1.4;margin-top:1px}
+.opt.sel{border-color:var(--lav-s);background:var(--lav)} .opt.sel .dot{border-color:var(--lav-s)} .opt.sel .dot::after{background:#7C66D6}
+.opt:has(input:focus-visible){outline:3px solid #7C66D6;outline-offset:2px}
+.navrow{display:flex;justify-content:space-between;gap:12px;margin-top:22px}
+.intro{text-align:center;padding:34px 26px} .intro h1{font-size:clamp(28px,4vw,38px);margin:14px 0 10px}
+.intro p{color:var(--muted);max-width:52ch;margin:0 auto 10px}
+
+.levelcard{border-radius:var(--r);padding:26px;margin-bottom:18px}
+.levelcard.l0{background:var(--mint);color:#163F2B} .levelcard.l1{background:var(--sky);color:#1D3F66} .levelcard.l2{background:var(--rose);color:#6B1F3B}
+.levelcard h2{font-size:clamp(34px,6vw,50px);margin:2px 0 8px}
+.gauge{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:18px}
+.gauge span{padding:8px 4px;text-align:center;border-radius:12px;font-size:13px;font-weight:700;background:rgba(255,255,255,.55);opacity:.7}
+.gauge span.on{background:#fff;opacity:1;box-shadow:0 2px 10px rgba(0,0,0,.08)}
+.tips{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));margin-bottom:18px}
+.tip{border-radius:18px;padding:16px}
+.tip:nth-child(3n+1){background:var(--lav)} .tip:nth-child(3n+2){background:var(--peach)} .tip:nth-child(3n){background:var(--mint)}
+.tip b{display:block;margin-bottom:4px;font-size:16px} .tip span{font-size:14.5px}
+.helpcard{background:var(--peach);color:#5C2B10;border-radius:var(--r);padding:20px;margin-bottom:18px}
+.helpcard h3{margin-bottom:6px}
+.res{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.res a{display:inline-flex;gap:6px;align-items:center;background:#fff;color:var(--ink);text-decoration:none;font-weight:800;font-size:14px;padding:8px 14px;border-radius:12px}
+.res a:hover{background:var(--lav)}
+
+.chatgrid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:18px;align-items:start}
+.chat{display:flex;flex-direction:column;height:min(74vh,720px);min-height:480px;padding:0;overflow:hidden;margin:0}
+.chathead{display:flex;align-items:center;gap:12px;padding:14px 18px;background:var(--lav);border-bottom:1px solid var(--line)}
+.chathead b{font-family:var(--display);font-size:18px;display:block;line-height:1.2} .chathead small{color:var(--muted);font-size:13px}
+.mode{margin-left:auto;font-size:12.5px;font-weight:800;background:#fff;color:var(--lav-ink);padding:4px 11px;border-radius:99px}
+.mode.basic{background:var(--butter);color:var(--butter-ink)}
+.howto{margin:12px 16px 0;background:var(--sky);color:var(--sky-ink);border-radius:16px;padding:12px 38px 12px 14px;font-size:14px;position:relative}
+.howto button.x{position:absolute;top:6px;right:8px;border:0;background:none;font-size:20px;color:var(--sky-ink);padding:2px 8px}
+.howto .ex{display:inline-block;margin-top:6px;font-style:italic}
+.msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px}
+.msg{display:flex;gap:10px;max-width:88%} .msg.user{align-self:flex-end;flex-direction:row-reverse}
+.bub{padding:11px 15px;border-radius:20px;font-size:15.5px;line-height:1.5;overflow-wrap:anywhere}
+.msg.bot .bub{background:var(--lav);border-top-left-radius:6px}
+.msg.user .bub{background:var(--peach);border-top-right-radius:6px}
+.msg.bot.err .bub{background:var(--butter)} .msg.bot.crisis .bub{background:var(--rose);color:#5E1B35}
+.bub p+p{margin-top:8px} .bub ul{margin:6px 0 0;padding-left:20px} .bub li{margin:3px 0}
+.typing{display:flex;gap:5px;padding:14px 16px}
+.typing i{width:8px;height:8px;border-radius:50%;background:var(--lav-s);animation:bounce 1.1s infinite}
+.typing i:nth-child(2){animation-delay:.15s} .typing i:nth-child(3){animation-delay:.3s}
+@keyframes bounce{0%,60%,100%{transform:translateY(0);opacity:.5}30%{transform:translateY(-5px);opacity:1}}
+.chips{display:flex;flex-wrap:wrap;gap:8px;padding:0 0 0 46px}
+.chip{border:2px solid var(--lav2);background:#fff;color:var(--lav-ink);font-weight:700;font-size:14px;padding:7px 14px;border-radius:99px}
+.chip:hover{background:var(--lav2)}
+.choice{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.composer{display:flex;gap:10px;align-items:flex-end;padding:12px 14px;border-top:1px solid var(--line);background:#fff}
+.composer textarea{flex:1;resize:none;border:2px solid var(--line);border-radius:18px;padding:11px 16px;max-height:130px;line-height:1.4}
+.composer textarea:focus{outline:none;border-color:var(--lav-s);box-shadow:0 0 0 4px rgba(185,167,240,.25)}
+.send{flex:none;width:46px;height:46px;border-radius:50%;border:0;background:var(--lav-s);display:grid;place-items:center} .send:hover{background:#A793EA} .send:disabled{opacity:.45}
+.privacy{font-size:12.5px;color:var(--muted);text-align:center;padding:0 16px 10px;background:#fff}
+.ideas h3{font-size:17px} .ideas .grp{margin:12px 0 4px;font-weight:800;font-size:14px}
+.ideas button.ex{display:block;width:100%;text-align:left;border:0;background:var(--lav);color:var(--ink);padding:9px 12px;border-radius:14px;font-size:14px;margin:5px 0}
+.ideas button.ex:hover{filter:brightness(.96)}
+.ideas .g1 button.ex{background:var(--peach)} .ideas .g2 button.ex{background:var(--mint)} .ideas .g3 button.ex{background:var(--sky)}
+
+.hist details{border:1px solid var(--line);border-radius:16px;margin:10px 0;background:#fff}
+.hist summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:12px;padding:14px 16px;font-weight:700}
+.hist summary::-webkit-details-marker{display:none}
+.hist .qa{padding:0 16px 14px;display:grid;gap:8px}
+.qa div{font-size:14.5px} .qa b{display:block;font-size:13px;color:var(--muted);font-weight:700}
+
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:18px}
+.stat{border-radius:var(--r);padding:18px}
+.stat .n{font-family:var(--display);font-size:36px;font-weight:600;line-height:1}
+.stat .l{font-size:14px;margin-top:6px;font-weight:700}
+.stat:nth-child(1){background:var(--lav);color:var(--lav-ink)} .stat:nth-child(2){background:var(--rose);color:var(--rose-ink)}
+.stat:nth-child(3){background:var(--butter);color:var(--butter-ink)} .stat:nth-child(4){background:var(--peach);color:var(--peach-ink)}
+.cols{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:18px;align-items:start}
+.person{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:0;background:none;padding:10px;border-radius:16px}
+.person:hover{background:var(--lav)} .person .nm{font-weight:800;line-height:1.25} .person .sub{font-size:13px;color:var(--muted)}
+.person .end{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.stack{display:flex;height:22px;border-radius:99px;overflow:hidden;background:var(--lav)}
+.stack i{display:block;min-width:0}
+.s0{background:var(--mint-s)} .s1{background:var(--sky-s)} .s2{background:var(--rose-s)} .sx{background:var(--butter-s)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:10px;font-size:14px}
+.legend span::before{content:"";display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:6px;background:var(--c)}
+.cic{display:grid;grid-template-columns:70px 1fr 30px;gap:10px;align-items:center;margin:9px 0;font-size:14px}
+.cic .stack{height:16px}
+.days{display:flex;gap:8px;align-items:flex-end;height:150px;padding-top:8px}
+.day{flex:1;text-align:center;font-size:11.5px;color:var(--muted);min-width:0}
+.day i{display:block;width:min(36px,80%);margin:0 auto 6px;border-radius:10px 10px 4px 4px;background:var(--lav-s);min-height:4px}
+.filters{display:grid;grid-template-columns:2fr 1fr 1fr 1fr auto;gap:12px;align-items:end}
+.filters .field{margin:0}
+.tablewrap{overflow:auto;margin-top:16px}
+table{width:100%;border-collapse:collapse;min-width:760px}
+th{text-align:left;font-size:13px;color:var(--muted);font-weight:800;padding:10px 12px;border-bottom:2px solid var(--line);white-space:nowrap}
+td{padding:11px 12px;border-bottom:1px solid var(--line);font-size:14.5px;vertical-align:middle}
+tbody tr{cursor:pointer} tbody tr:hover,tbody tr:focus-within{background:var(--lav)}
+td .who2{display:flex;gap:10px;align-items:center} td .who2 button{background:none;border:0;text-align:left;font-weight:800;padding:0}
+.trend{font-weight:800;font-size:13px} .trend.up{color:var(--rose-ink)} .trend.down{color:var(--mint-ink)}
+.back{border:0;background:none;color:var(--lav-ink);font-weight:800;padding:6px 2px;margin-bottom:8px}
+.profile{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.profile h1{font-size:28px}
+.ask-banner{background:var(--peach);color:var(--peach-ink);border-radius:16px;padding:14px 18px;margin:0 0 18px;font-weight:700}
+.picker{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 16px}
+.picker button{border:2px solid var(--line);background:#fff;border-radius:99px;padding:6px 14px;font-weight:700;font-size:13.5px;color:var(--muted)}
+.picker button.on{border-color:var(--lav-s);background:var(--lav);color:var(--lav-ink)}
+.detail{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:18px;align-items:start}
+.bigl{font-family:var(--display);font-size:38px;font-weight:600;line-height:1.1;margin:4px 0 6px}
+.lvl0{background:var(--mint);color:#163F2B} .lvl1{background:var(--sky);color:#1D3F66} .lvl2{background:var(--rose);color:#6B1F3B}
+.lvl{border-radius:18px;padding:18px 20px;margin-bottom:16px}
+.adjust{background:rgba(255,255,255,.7);border-radius:12px;padding:10px 12px;font-size:13.5px;margin-top:12px}
+.pbar{display:grid;grid-template-columns:90px 1fr 42px;gap:10px;align-items:center;font-size:13.5px;margin:6px 0}
+.pbar .tr{height:10px;background:var(--lav);border-radius:99px;overflow:hidden} .pbar .tr i{display:block;height:100%;border-radius:99px}
+.qlist{display:grid;gap:10px}
+.qitem{padding:12px 14px;border-radius:16px;background:var(--lav)}
+.qitem:nth-child(even){background:#FAF8FE;border:1px solid var(--line)}
+.qitem .q{font-size:13px;color:var(--muted);line-height:1.35} .qitem .a{font-weight:800;margin-top:3px}
+.qitem .a small{font-weight:600;color:var(--muted);display:block;font-size:13px}
+.tag{display:inline-block;font-size:11.5px;font-weight:800;background:var(--lav2);color:var(--lav-ink);padding:2px 8px;border-radius:99px;margin-left:6px}
+.plan{display:grid;gap:10px}
+.act{display:flex;gap:12px;padding:12px 14px;border-radius:16px;background:var(--lav)}
+.act .ic{flex:none;width:12px;height:12px;border-radius:50%;margin-top:7px}
+.act.priority{background:var(--rose)} .act.priority .ic{background:var(--rose-s)}
+.act.follow{background:var(--butter)} .act.follow .ic{background:var(--butter-s)}
+.act.soft{background:var(--sky)} .act.soft .ic{background:var(--sky-s)}
+.act.ok{background:var(--mint)} .act.ok .ic{background:var(--mint-s)}
+.act b{display:block} .act span.t{font-size:14px}
+textarea.input{resize:vertical;min-height:96px}
+svg.evo text{font-family:var(--body);font-size:11px;fill:var(--muted)}
+svg.evo circle{cursor:pointer}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 20px;border-radius:99px;font-weight:700;font-size:14.5px;z-index:50;box-shadow:0 8px 24px rgba(0,0,0,.2);max-width:90vw}
+
+@media(max-width:1000px){.chatgrid{grid-template-columns:1fr}.cols,.detail{grid-template-columns:1fr}.filters{grid-template-columns:1fr 1fr}.auth{grid-template-columns:1fr;min-height:0}.bubbles{display:none}}
+@media(max-width:860px){
+  .layout{grid-template-columns:1fr}
+  .side{position:fixed;left:0;right:0;bottom:0;top:auto;z-index:20;border-radius:20px 20px 0 0;display:flex;gap:4px;padding:8px 10px calc(8px + env(safe-area-inset-bottom));box-shadow:0 -6px 24px rgba(120,100,180,.15)}
+  .side .note{display:none} .nav{flex-direction:column;gap:2px;font-size:12px;padding:8px 6px;text-align:center;justify-content:center;flex:1}
+  .shell{padding:14px 14px 100px} .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .pagehead h1{font-size:26px} .who span{display:none}
+}
+@media(max-width:560px){.grid2{grid-template-columns:1fr}.filters{grid-template-columns:1fr}.msg{max-width:96%}.card{padding:18px}.chips{padding-left:0}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+<link rel="stylesheet" href="/static/v3.css?v=3">
+</head>
+<body>
+<div class="shell" id="app">
+  <div class="top">
+    <div class="brand"><div class="logo" id="logo"></div><div><b>MindReset</b><small>Bienestar y orientación estudiantil</small></div></div>
+    <div class="who"><button class="theme-btn" id="themebtn" data-act="theme" aria-label="Cambiar entre modo claro y oscuro" title="Modo claro / oscuro">🌙</button><span id="who" style="display:flex;align-items:center;gap:10px"></span></div>
+  </div>
+
+  <section id="auth" class="auth">
+    <div class="hero">
+      <h1>Un respiro entre clases.</h1>
+      <p class="lead">Cuéntanos cómo vas en dos minutos y conversa con Mindi, un asistente que te ofrece ideas sencillas para sentirte mejor.</p>
+      <div class="bubbles" aria-hidden="true">
+        <div class="bubble">🌿 Encuesta breve, sin respuestas buenas ni malas</div>
+        <div class="bubble">💬 Mindi te acompaña con ejemplos prácticos</div>
+        <div class="bubble">🤝 Psicología te escribe solo si tú lo pides</div>
+      </div>
+    </div>
+    <div class="card authcard">
+      <div class="tabs" role="group" aria-label="Acceso">
+        <button type="button" data-act="auth-tab" data-v="login" class="on">Ingresar</button>
+        <button type="button" data-act="auth-tab" data-v="register">Crear cuenta</button>
+      </div>
+      <div id="autherr" class="notice err hidden" role="alert"></div>
+      <form id="loginform" autocomplete="on">
+        <div class="field"><label for="lu">Usuario</label><input id="lu" autocomplete="username" required placeholder="Tu usuario"></div>
+        <div class="field"><label for="lp">Contraseña</label><input id="lp" type="password" autocomplete="current-password" required placeholder="Tu contraseña"></div>
+        <button class="btn" style="width:100%;margin-top:6px">Ingresar</button>
+        <p class="muted small" id="demohint" style="margin-top:14px">Solo datos de prueba. Demo: estudiante <b>estudiante1</b> / <b>MindReset2026!</b> · psicología <b>psicologo1</b> / <b>PsicoDemo2026!</b></p>
+      </form>
+      <form id="regform" class="hidden" autocomplete="on">
+        <div class="field"><label for="rn">Nombre completo</label><input id="rn" autocomplete="name" required minlength="2" maxlength="120" placeholder="Ej.: Camila Torres Vega"></div>
+        <div class="grid2">
+          <div class="field"><label for="rc">Ciclo</label><select id="rc" required><option value="">Elige…</option></select></div>
+          <div class="field"><label for="rk">Carrera</label><input id="rk" required minlength="2" maxlength="80" placeholder="Ej.: Arquitectura"></div>
+        </div>
+        <div class="field"><label for="re">Correo electrónico</label><input id="re" type="email" required maxlength="120" autocomplete="email" placeholder="tucorreo@gmail.com"><p class="muted small" style="margin-top:4px">Personal, institucional o de trabajo. Úsalo con el que manejas tu Google Calendar: ahí enviaremos tus recordatorios y podrás vincular tu calendario.</p></div>
+        <div class="field"><label for="ru">Usuario</label><input id="ru" required minlength="3" maxlength="40" pattern="[A-Za-z0-9._\-]+" autocomplete="username" placeholder="Letras, números, punto o guion"></div>
+        <div class="field"><label for="rp">Contraseña</label><input id="rp" type="password" required minlength="8" autocomplete="new-password" placeholder="Mínimo 8 caracteres"></div>
+        <div class="consents" role="group" aria-label="Consentimientos">
+          <h4>Antes de crear tu cuenta (ninguna casilla viene marcada)</h4>
+          <label class="check"><input id="c1" type="checkbox" required><span>He leído y acepto los <button type="button" class="linkb" data-act="terms">Términos y Condiciones de Uso</button> de MindReset.</span></label>
+          <label class="check"><input id="c2" type="checkbox" required><span>Autorizo el tratamiento de mis datos personales y de <b>datos sensibles de bienestar emocional</b> (encuestas, chequeos, calendario y conversaciones con Mindi) para las finalidades de la <button type="button" class="linkb" data-act="terms" data-sec="8">Política de tratamiento de datos</button>.</span></label>
+          <label class="check"><input id="c3" type="checkbox" required><span>Autorizo que el <b>Área de Bienestar Estudiantil y Psicología</b> de mi institución vea mi información individual (nombre, ciclo, encuestas e informes breves) para orientarme. El equipo desarrollador solo trabajará con datos anonimizados o de forma excepcional y autorizada.</span></label>
+          <label class="check"><input id="c4" type="checkbox" required><span>Entiendo que MindReset es una herramienta de <b>orientación</b>, no un diagnóstico ni un servicio de emergencia, y que puedo ejercer mis derechos de acceso, rectificación, cancelación y oposición.</span></label>
+        </div>
+        <label class="check" style="margin-top:0"><input id="rnot" type="checkbox" checked><span>(Opcional) Quiero recibir recordatorios por correo 15 minutos antes de mis descansos y actividades.</span></label>
+        <button class="btn" style="width:100%">Crear mi cuenta</button>
+      </form>
+      <div class="notice" style="margin-bottom:0">Prototipo académico. No reemplaza una evaluación psicológica ni es un servicio de emergencia.</div>
+    </div>
+  </section>
+
+  <div id="ws" class="layout hidden">
+    <aside class="side" id="side"></aside>
+    <main class="main" id="main"></main>
+  </div>
+  <div class="footer">MindReset · Prototipo académico · Los datos de bienestar se tratan como información sensible. <button class="linkb" data-act="terms" style="font-weight:700">Términos y Condiciones</button></div>
+</div>
+<div id="toast" class="toast hidden" role="status"></div>
+<div id="modalroot"></div>
+
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let token=localStorage.getItem('mr_token')||'', me=null, tab='', arg=null, pollTimer=null;
+const STRESS=['Sin estrés','Eustrés','Angustia'], ALERT={alto:'Prioritaria',medio:'Seguimiento',bajo:'Habitual'};
+const HELP_LINES=[{h:'tel:113',t:'📞 Llamar al 113'},{h:'https://wa.me/51955557000',t:'💬 WhatsApp 955 557 000'}];
+const helpLinks=()=>HELP_LINES.map(l=>`<a href="${l.h}" target="_blank" rel="noopener">${l.t}</a>`).join('');
+
+async function api(path,opts={}){
+  const headers={'Content-Type':'application/json',...(opts.headers||{})}; if(token)headers.Authorization='Bearer '+token;
+  const res=await fetch(path,{...opts,headers});
+  if(!res.ok){let m='Ocurrió un error';try{const j=await res.json();m=typeof j.detail==='string'?j.detail:(j.detail?.[0]?.msg||m)}catch{} if(res.status===401&&token)logout(false); throw new Error(m)}
+  return res.headers.get('content-type')?.includes('text/csv')?res.blob():res.json();
+}
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.remove('hidden');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.add('hidden'),3200)}
+const fDate=i=>new Date(i).toLocaleDateString('es-PE',{day:'numeric',month:'short'});
+const fDT=i=>new Date(i).toLocaleString('es-PE',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
+const initials=n=>n.split(/\s+/).filter(Boolean).slice(0,2).map(w=>w[0]).join('').toUpperCase();
+const avc=n=>'av'+([...n].reduce((a,c)=>a+c.charCodeAt(0),0)%6);
+const avatar=(n,lg)=>`<span class="avatar ${lg?'lg':''} ${avc(n)}" aria-hidden="true">${esc(initials(n))}</span>`;
+const stressPill=(c,l)=>`<span class="pill c${c}">${esc(l||STRESS[c])}</span>`;
+const alertPill=a=>`<span class="pill ${a}">${ALERT[a]||a}</span>`;
+const inline=t=>t.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+function fmt(text){
+  const lines=esc(text).split('\n'); let out='',list=false,para=[];
+  const flush=()=>{if(para.length){out+='<p>'+inline(para.join('<br>'))+'</p>';para=[]}};
+  for(const ln of lines){const m=ln.match(/^\s*[-•]\s+(.*)$/);
+    if(m){flush();if(!list){out+='<ul>';list=true}out+='<li>'+inline(m[1])+'</li>'}
+    else{if(list){out+='</ul>';list=false} if(!ln.trim())flush(); else para.push(ln)}}
+  flush(); if(list)out+='</ul>'; return out;
+}
+const mindi=(size=40)=>`<svg width="${size}" height="${size}" viewBox="0 0 48 48" aria-hidden="true" style="flex:none"><circle cx="24" cy="24" r="22.5" fill="#E2D6FF" stroke="#6A3EC8" stroke-width="2"/><ellipse cx="14.5" cy="28.5" rx="4" ry="2.6" fill="#F6BFA3" opacity=".7"/><ellipse cx="33.5" cy="28.5" rx="4" ry="2.6" fill="#F6BFA3" opacity=".7"/><circle cx="17.5" cy="22" r="2.6" fill="#3B2A66"/><circle cx="30.5" cy="22" r="2.6" fill="#3B2A66"/><path d="M18.5 29.5q5.5 5 11 0" fill="none" stroke="#3B2A66" stroke-width="2.4" stroke-linecap="round"/><path d="M24 4.5c-3 .2-4.6 2.6-4.2 5 2.6-.2 4.5-2 4.2-5z" fill="#00BFA6"/></svg>`;
+const svgi=d=>`<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
+const ICON={chat:svgi('<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/>'),heart:svgi('<path d="M20.8 5.6a5.2 5.2 0 0 0-7.4 0L12 7l-1.4-1.4a5.2 5.2 0 0 0-7.4 7.4L12 21.8l8.8-8.8a5.2 5.2 0 0 0 0-7.4z"/>'),
+  list:svgi('<path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/>'),home:svgi('<path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/>'),
+  users:svgi('<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.2a6.5 6.5 0 0 1 3.5 5.8"/>'),
+  send:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4z"/></svg>'};
+$('#logo').innerHTML=mindi(34);
+$('#rc').innerHTML+=Array.from({length:10},(_,i)=>`<option value="${i+1}">Ciclo ${i+1}</option>`).join('');
+
+const ACT={};
+document.addEventListener('click',e=>{const el=e.target.closest('[data-act]'); if(el&&ACT[el.dataset.act]){if(el.tagName!=='INPUT')e.preventDefault();ACT[el.dataset.act](el,e)}});
+
+/* ---------- autenticación ---------- */
+const authErr=m=>{const b=$('#autherr');b.textContent=m;b.classList.toggle('hidden',!m)};
+ACT['auth-tab']=el=>{const reg=el.dataset.v==='register';document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('on',b===el));$('#loginform').classList.toggle('hidden',reg);$('#regform').classList.toggle('hidden',!reg);authErr('')};
+async function enter(r){token=r.token;localStorage.setItem('mr_token',token);me=r.user;showApp()}
+$('#loginform').addEventListener('submit',async e=>{e.preventDefault();authErr('');try{await enter(await api('/api/login',{method:'POST',body:JSON.stringify({username:$('#lu').value.trim(),password:$('#lp').value})}))}catch(err){authErr(err.message)}});
+$('#regform').addEventListener('submit',async e=>{e.preventDefault();authErr('');const b=e.submitter;b.disabled=true;
+  try{await enter(await api('/api/register',{method:'POST',body:JSON.stringify({username:$('#ru').value.trim(),password:$('#rp').value,display_name:$('#rn').value.trim(),ciclo:+$('#rc').value,carrera:$('#rk').value.trim(),email:$('#re').value.trim(),consent_terms:$('#c1').checked,consent_data:$('#c2').checked,consent_visibility:$('#c3').checked,consent_tool:$('#c4').checked,notify_email:$('#rnot').checked})}))}
+  catch(err){authErr(err.message)}finally{b.disabled=false}});
+async function logout(call=true){
+  if(call&&token){try{await api('/api/logout',{method:'POST'})}catch{}}
+  token='';me=null;localStorage.removeItem('mr_token');clearInterval(pollTimer);resetStudentState();
+  $('#ws').classList.add('hidden');$('#auth').classList.remove('hidden');$('#who').innerHTML='';
+}
+ACT.logout=()=>logout();
+async function init(){if(!token)return;try{me=await api('/api/me');showApp()}catch{logout(false)}}
+function showApp(){
+  $('#auth').classList.add('hidden');$('#ws').classList.remove('hidden');
+  $('#who').innerHTML=`<span>${esc(me.display_name)}</span><button class="btn soft sm" data-act="logout">Salir</button>`;
+  clearInterval(pollTimer);
+  if(me.role==='student'){resetStudentState();tab=me.checked_today?'chat':'survey';S.mandatory=!me.checked_today}
+  else{tab='home';arg=null;pollTimer=setInterval(()=>{if(!document.hidden)refreshPsych()},8000)}
+  drawSide();render();
+}
+function drawSide(){
+  const st=me.role==='student';
+  const items=st?[['chat','Mindi',ICON.chat],['calendar','Calendario',ICON.cal],['community','Comunidad',ICON.group],['wellbeing','Mi bienestar',ICON.heart],['survey','Encuesta',ICON.list]]:[['home','Resumen',ICON.home],['students','Estudiantes',ICON.users],['community','Comunidad',ICON.group]];
+  const active=tab==='student'?'students':tab==='post'?'community':tab;
+  $('#ws').classList.toggle('focus',st&&tab==='survey'&&S.mandatory&&!S.result);
+  $('#side').innerHTML=items.map(([id,l,ic])=>`<button class="nav ${id===active?'on':''}" data-act="go" data-tab="${id}">${ic}<span>${l}</span></button>`).join('')
+    +`<div class="note">${st?'Tu encuesta, tus chequeos y tus informes breves los ve psicología. Tu chat con Mindi y tu calendario, no.':'Acceso solo para personal autorizado.'}</div>`;
+}
+ACT.go=el=>go(el.dataset.tab);
+function go(t,a=null){tab=t;arg=a;if(t==='survey'&&me.role==='student'){const qs=S.qs;resetStudentState();S.qs=qs}drawSide();render();window.scrollTo({top:0})}
+async function render(){
+  try{
+    if(me.role==='student'){if(tab==='chat')await studentChat();else if(tab==='wellbeing')await studentWellbeing();else if(tab==='calendar')await calendarPage();else if(tab==='community'||tab==='post')await communityPage();else if(tab==='deep')await deepPage();else await studentSurvey()}
+    else{if(tab==='community'||tab==='post')await communityPage();else if(tab==='students')await psychStudents();else if(tab==='student')await psychDetail();else await psychHome()}
+  }catch(e){$('#main').innerHTML=`<div class="card"><div class="notice err">${esc(e.message)}</div><button class="btn soft" data-act="retry">Reintentar</button></div>`}
+}
+ACT.retry=()=>render();
+
+/* ===== ESTUDIANTE · ENCUESTA ===== */
+let S={}, CH={}, DP=null;
+function resetStudentState(){const qs=S.qs||null;S={qs,i:-1,answers:{},mandatory:false,result:null};CH={msgs:[],busy:false,source:null,started:false,hideHow:false,offered:false};DP=null}
+resetStudentState();
+const first=()=>me.display_name.split(' ')[0];
+
+async function studentSurvey(){
+  if(!S.qs)S.qs=(await api('/api/survey')).questions;
+  if(S.result)return drawResult();
+  S.i<0?drawIntro():drawQuestion();
+}
+function drawIntro(){
+  $('#main').innerHTML=`<div class="wizard"><div class="card intro">${mindi(72)}
+    <h1>${S.mandatory?`Hola, ${esc(first())}. ¿Cómo vienes hoy?`:'Un nuevo chequeo'}</h1>
+    <p>Son ${S.qs.length} preguntas cortas, de unos 2 minutos. No hay respuestas buenas ni malas: elige lo que más se parezca a ti.</p>
+    <p class="small">Las respuestas de esta encuesta las puede ver el servicio de psicología de tu universidad para acompañarte. Lo que converses con Mindi no.</p>
+    <div style="margin-top:20px"><button class="btn" data-act="start">Empezar</button></div></div></div>`;
+}
+ACT.start=()=>{S.i=0;drawQuestion()};
+function drawQuestion(){
+  const q=S.qs[S.i], n=S.qs.length, cur=S.answers[q.id];
+  $('#main').innerHTML=`<div class="wizard">
+    <div class="steps" aria-hidden="true">${S.qs.map((_,k)=>`<span class="seg ${k<S.i?'done':k===S.i?'now':''}"></span>`).join('')}</div>
+    <div class="card"><p class="qlabel">Pregunta ${S.i+1} de ${n}</p>
+      <h2 class="qtitle" id="qt">${esc(q.title)}</h2><p class="qhelp">${esc(q.help)}</p>
+      <div class="opts" role="radiogroup" aria-labelledby="qt">${q.options.map(o=>`<label class="opt ${cur===o.id?'sel':''}"><input type="radio" name="opt" value="${o.id}" ${cur===o.id?'checked':''}><span class="dot"></span><span><b>${esc(o.label)}</b><small>${esc(o.hint)}</small></span></label>`).join('')}</div>
+      <div id="qerr" class="notice err hidden" role="alert"></div>
+      <div class="navrow"><button class="btn ghost" data-act="prev">Atrás</button>
+      <button class="btn" id="nextbtn" data-act="next" ${cur?'':'disabled'}>${S.i===n-1?'Ver mi resultado':'Siguiente'}</button></div></div></div>`;
+  document.querySelectorAll('.opt input').forEach(r=>r.addEventListener('change',()=>{
+    S.answers[q.id]=r.value;document.querySelectorAll('.opt').forEach(o=>o.classList.toggle('sel',o.contains(r)&&r.checked));$('#nextbtn').disabled=false}));
+}
+ACT.prev=()=>{S.i--;S.i<0?drawIntro():drawQuestion()};
+ACT.next=async el=>{
+  if(S.i<S.qs.length-1){S.i++;return drawQuestion()}
+  el.disabled=true;
+  try{S.result=await api('/api/checkins',{method:'POST',body:JSON.stringify({answers:S.answers})});me.checked_today=true;S.mandatory=false;CH.started=false;drawSide();drawResult();window.scrollTo({top:0})}
+  catch(e){const b=$('#qerr');b.textContent=e.message;b.classList.remove('hidden');el.disabled=false}
+};
+function drawResult(){
+  const r=S.result,c=r.predicted_class, support=r.alert_level!=='bajo'||r.wants_contact;
+  $('#main').innerHTML=`<div class="wizard">
+    <div class="row" style="justify-content:flex-start;gap:14px;margin-bottom:14px">${mindi(52)}<div><h1 style="font-size:26px">Gracias por hacer una pausa, ${esc(first())}.</h1><p class="muted">Tu chequeo quedó guardado.</p></div></div>
+    <div class="levelcard l${c}"><p class="small" style="font-weight:700">Tu chequeo de hoy</p><h2>${esc(r.label)}</h2><p>${esc(r.description)}</p>
+      <div class="gauge" aria-label="Escala de estrés">${STRESS.map((s,k)=>`<span class="${k===c?'on':''}">${s}</span>`).join('')}</div></div>
+    <h3 style="margin:0 0 10px">Ideas pequeñas para esta semana</h3>
+    <div class="tips">${r.tips.map(t=>`<div class="tip"><b>${esc(t.title)}</b><span>${esc(t.detail)}</span></div>`).join('')}</div>
+    ${support?`<div class="helpcard"><h3>No tienes que pasar por esto solo/a</h3>
+      <p>${r.wants_contact?'Ya avisamos al servicio de psicología: te escribirán pronto.':'Si te sirve, podemos avisar al servicio de psicología para que te escriban. Es tu decisión.'}</p>
+      <div class="res">${r.wants_contact?'':'<button class="btn sm mint" data-act="contact">Quiero que me contacten</button>'}${helpLinks()}</div></div>`:''}
+    <div class="askcal"><b>¿Quieres recomendaciones hechas para ti?</b><p style="margin:4px 0 12px">Mindi te hará 3 preguntas más, según tus respuestas y tu horario, y te propondrá actividades que puedes añadir a tu calendario.</p><button class="btn mint" data-act="deep-start">Hacer mi chequeo profundo</button></div><div class="row" style="justify-content:flex-start"><button class="btn" data-act="go" data-tab="chat">Conversar con Mindi</button><button class="btn soft" data-act="go" data-tab="calendar">Organizar mi semana</button><button class="btn soft" data-act="go" data-tab="wellbeing">Ver mi bienestar</button></div>
+    <p class="muted small" style="margin-top:16px">${esc(r.message)}</p></div>`;
+}
+ACT.contact=async el=>{el.disabled=true;try{const r=await api('/api/contact-request',{method:'POST'});toast(r.message);S.result.wants_contact=true;drawResult()}catch(e){toast(e.message);el.disabled=false}};
+
+/* ===== ESTUDIANTE · CHAT CON MINDI ===== */
+const IDEAS=[
+  ['😴 Sueño','',['No logro dormir y me levanto cansado/a','Me duermo muy tarde por las tareas']],
+  ['📚 Exámenes','g1',['Tengo examen mañana y me bloqueo','No sé cómo organizar mi estudio para finales']],
+  ['💭 Ansiedad','g2',['Siento el pecho apretado antes de exponer','No puedo dejar de preocuparme']],
+  ['🗓️ Organización','g3',['Tengo tres entregas esta semana','Me distraigo mucho con el celular']]
+];
+const CONTACT_CHIPS=['Quiero que psicología me contacte','Quiero hablar con psicología'];
+const CONTACT_ASK='Con gusto. ¿Quieres que avise al servicio de psicología para que te escriban? Solo verán tu nombre y tu encuesta, **no esta conversación**.';
+async function studentChat(){
+  if(!CH.started){
+    CH.started=true;
+    CH.msgs=[{role:'bot',text:`¡Hola, ${first()}! Soy **Mindi** 💜 Estoy aquí para escucharte y darte ideas sencillas.\n\nCuéntame **qué pasa, desde cuándo y cómo te afecta**. Por ejemplo: «Tengo examen el viernes y me bloqueo al estudiar».\n\n¿Qué te gustaría contarme hoy?`,
+      suggestions:['Tengo examen y me bloqueo','No logro dormir bien','Siento mucha carga de tareas']}];
+  }
+  const basic=me.chat_mode!=='gemini'||CH.source==='basic';
+  $('#main').innerHTML=`<div class="chatgrid">
+    <section class="card chat" aria-label="Chat con Mindi">
+      <div class="chathead">${mindi(44)}<div><b>Mindi</b><small>Tu asistente de bienestar</small></div><span class="mode ${basic?'basic':''}" id="mode">${basic?'Modo básico':'Con Gemini'}</span></div>
+      <div id="sigbox" style="padding:12px 16px 0"></div>
+      <div class="howto ${CH.hideHow?'hidden':''}" id="howto"><button class="x" data-act="hidehow" aria-label="Cerrar ayuda">×</button>
+        <b>¿Cómo contarme mejor?</b><br>Cuanto más específico seas, mejor puedo ayudarte.<br><span class="ex">«Tengo un trabajo grupal el viernes, mi grupo no responde y me estoy desvelando.»</span></div>
+      <div class="msgs" id="msgs" aria-live="polite"></div>
+      <div class="composer"><textarea id="cin" rows="1" maxlength="1000" placeholder="Escribe aquí lo que quieras contarme…" aria-label="Tu mensaje"></textarea>
+        <button class="send" id="csend" data-act="send" aria-label="Enviar">${ICON.send}</button></div>
+      <p class="privacy">Mindi no es psicólogo y no hace diagnósticos. Tu conversación no se comparte con psicología.</p>
+    </section>
+    <aside class="card ideas"><h3>Ideas para empezar</h3><p class="muted small">Toca una frase para enviarla o escribe con tus palabras.</p>
+      ${IDEAS.map(([t,g,ex])=>`<div class="${g}"><div class="grp">${t}</div>${ex.map(x=>`<button class="ex" data-act="chip" data-t="${esc(x)}">${esc(x)}</button>`).join('')}</div>`).join('')}
+      <hr style="border:0;border-top:1px solid var(--line);margin:16px 0">
+      <h3 style="font-size:16px">¿Prefieres hablar con una persona?</h3>
+      <p class="muted small" style="margin:4px 0 10px">Puedes pedir que psicología te escriba. Solo lo haremos si tú lo pides.</p>
+      <button class="btn mint sm" data-act="ask-contact">Pedir contacto</button>
+      <hr style="border:0;border-top:1px solid var(--line);margin:16px 0"><h3 style="font-size:16px">Recomendaciones para ti</h3><p class="muted small" style="margin:4px 0 10px">3 preguntas adaptadas a ti y opción de añadir actividades a tu calendario.</p><button class="btn sm" data-act="deep-start">Chequeo profundo</button>
+      <div class="res" style="margin-top:12px">${helpLinks()}</div>
+    </aside></div>`;
+  const ta=$('#cin');
+  ta.addEventListener('input',()=>{ta.style.height='auto';ta.style.height=Math.min(ta.scrollHeight,130)+'px'});
+  ta.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendFromInput()}});
+  renderMsgs();loadSignals('#sigbox');
+}
+ACT.hidehow=()=>{CH.hideHow=true;$('#howto').classList.add('hidden')};
+function renderMsgs(){
+  const box=$('#msgs'); if(!box)return;
+  const lastBot=CH.msgs.length-1;
+  box.innerHTML=CH.msgs.map((m,i)=>{
+    const bot=m.role==='bot';
+    let h=`<div class="msg ${bot?'bot':'user'} ${m.error?'err':''} ${m.crisis?'crisis':''}">${bot?mindi(36):''}<div class="bub">${fmt(m.text)}`;
+    if(m.crisis)h+=`<div class="res">${helpLinks()}</div>`;
+    if(m.offer)h+=`<div class="choice"><button class="btn sm mint" data-act="offer-yes">Sí, avisen a psicología</button><button class="btn sm" data-act="deep-start">Chequeo profundo</button><button class="btn sm ghost" data-act="offer-no">Ahora no</button></div>`;
+    if(m.confirm)h+=`<div class="choice"><button class="btn sm mint" data-act="confirm-contact">Sí, avísales</button><button class="btn sm ghost" data-act="dismiss-contact">Ahora no</button></div>`;
+    if(m.retry)h+=`<div class="choice"><button class="btn sm soft" data-act="chip" data-t="${esc(m.retry)}">Intentar de nuevo</button></div>`;
+    h+='</div></div>';
+    if(bot&&i===lastBot&&m.suggestions?.length&&!CH.busy)h+=`<div class="chips">${m.suggestions.map(s=>`<button class="chip" data-act="chip" data-t="${esc(s)}">${esc(s)}</button>`).join('')}</div>`;
+    return h}).join('')
+    +(CH.busy?`<div class="msg bot">${mindi(36)}<div class="bub typing" aria-label="Mindi está escribiendo"><i></i><i></i><i></i></div></div>`:'');
+  const ms=box.querySelectorAll('.msg'), lm=ms[ms.length-1];
+  if(lm&&lm.classList.contains('bot')&&!CH.busy&&ms.length>1)box.scrollTop=lm.getBoundingClientRect().top-box.getBoundingClientRect().top+box.scrollTop-8;  // mostrar el inicio de la respuesta
+  else box.scrollTop=box.scrollHeight;
+  const sb=$('#csend'); if(sb)sb.disabled=CH.busy;
+}
+function sendFromInput(){const ta=$('#cin');const t=ta.value;ta.value='';ta.style.height='auto';sendMsg(t)}
+ACT.send=()=>sendFromInput();
+ACT.chip=el=>sendMsg(el.dataset.t);
+async function sendMsg(text){
+  text=(text||'').trim(); if(!text||CH.busy)return;
+  CH.msgs=CH.msgs.filter(m=>!m.error);
+  CH.msgs.push({role:'user',text});
+  if(CONTACT_CHIPS.includes(text)){CH.msgs.push({role:'bot',text:CONTACT_ASK,confirm:true});return renderMsgs()}
+  CH.busy=true;renderMsgs();
+  try{
+    const hist=CH.msgs.slice(0,-1).slice(-10).map(m=>({role:m.role==='user'?'user':'bot',text:m.text}));
+    const r=await api('/api/chat',{method:'POST',body:JSON.stringify({message:text,history:hist,offered:!!CH.offered})});
+    CH.source=r.source;CH.msgs.push({role:'bot',text:r.reply,suggestions:r.suggestions,crisis:r.crisis});
+    if(r.offer_support&&!CH.offered){CH.offered=true;CH.msgs.push({role:'bot',offer:true,text:'Noto que últimamente te está pesando mucho 💜 Me importa cómo estás. Si quieres, puedo **avisar a psicología** para que te escriban (solo verán tu nombre y tus encuestas, no esta conversación), o podemos hacer un **chequeo profundo** para ver qué ayudaría de verdad. Tú decides.'})}
+  }catch(e){CH.msgs.push({role:'bot',error:true,text:`Uy, no pude responder ahora (${e.message}). Puedes intentarlo de nuevo en un momento.`,retry:text})}
+  CH.busy=false;
+  const mode=$('#mode');if(mode){const b=me.chat_mode!=='gemini'||CH.source==='basic';mode.textContent=b?'Modo básico':'Con Gemini';mode.classList.toggle('basic',b)}
+  renderMsgs();
+}
+ACT['confirm-contact']=async()=>{CH.msgs=CH.msgs.filter(m=>!m.confirm);let t;try{t=(await api('/api/contact-request',{method:'POST'})).message}catch(e){t=e.message}CH.msgs.push({role:'bot',text:t+' Mientras tanto, aquí sigo contigo 💜'});renderMsgs()};
+ACT['dismiss-contact']=()=>{CH.msgs=CH.msgs.filter(m=>!m.confirm);CH.msgs.push({role:'bot',text:'Está bien, sin presión. Si cambias de idea, el botón «Pedir contacto» siempre está disponible. ¿Seguimos conversando?'});renderMsgs()};
+ACT['ask-contact']=()=>{CH.msgs.push({role:'user',text:'Quiero que psicología me contacte'},{role:'bot',text:CONTACT_ASK,confirm:true});renderMsgs()};
+
+/* ===== ESTUDIANTE · MI BIENESTAR ===== */
+async function studentWellbeing(){
+  const rows=await api('/api/my-checkins'), last=rows[0];
+  $('#main').innerHTML=`<div class="pagehead"><h1>Mi bienestar</h1><p>Solo tú y el servicio de psicología pueden ver tus encuestas.</p></div>
+  ${last?`<div class="levelcard l${last.predicted_class}"><p class="small" style="font-weight:700">Último chequeo · ${esc(fDT(last.created_at))}</p><h2>${esc(last.label)}</h2><p>${esc(last.description)}</p></div>`:`<div class="card"><p>Aún no tienes encuestas.</p><button class="btn" style="margin-top:12px" data-act="go" data-tab="survey">Hacer mi primera encuesta</button></div>`}
+  ${rows.length?`<div class="card hist"><h2>Mis encuestas</h2>${rows.map(r=>`<details><summary>${stressPill(r.predicted_class,r.label)}<span>${esc(fDT(r.created_at))}</span></summary>
+    <div class="qa">${r.answers_readable.map(a=>`<div><b>${esc(a.question)}</b>${esc(a.answer)}</div>`).join('')||'<div class="muted">Registro anterior sin detalle.</div>'}</div></details>`).join('')}</div>`:''}`;
+}
+
+/* ===== PSICOLOGÍA ===== */
+let P={students:[],flt:{q:'',level:'todos',ciclo:'todos',status:'todos'},D:null,sel:0};
+function refreshPsych(){
+  if(tab==='home')psychHome().catch(()=>{});
+  else if(tab==='students')api('/api/students').then(r=>{P.students=r;drawRows()}).catch(()=>{});
+}
+async function psychHome(){
+  const [d,h]=await Promise.all([api('/api/dashboard'),fetch('/health').then(r=>r.json()).catch(()=>null)]);
+  if(tab!=='home')return;
+  const t=d.distribution,tot=d.students_with_checkin||1,maxC=Math.max(1,...d.by_ciclo.map(c=>c.total)),maxD=Math.max(1,...d.trend.map(x=>x.total));
+  const sh=h?.google_sheets;
+  $('#main').innerHTML=`<div class="pagehead"><div class="row"><div><h1>Panel de seguimiento</h1><p>Se actualiza solo mientras esta pantalla está abierta.</p></div>
+    ${sh?`<span class="pill ${sh.enabled&&!sh.last_error?'c0':sh.enabled?'medio':'none'}" title="${esc(sh.last_error||'')}">${sh.enabled?(sh.last_error?'Google Sheets: reintentando':`Google Sheets conectado${sh.pending_rows?` · ${sh.pending_rows} por enviar`:''}`):'Base local (Sheets sin configurar)'}</span>`:''}</div></div>
+  <div class="stats"><div class="stat"><div class="n">${d.students_with_checkin}<small style="font-size:18px"> / ${d.total_students}</small></div><div class="l">Estudiantes con encuesta</div></div>
+    <div class="stat"><div class="n">${d.alerts.alto}</div><div class="l">Atención prioritaria</div></div>
+    <div class="stat"><div class="n">${d.pending_reviews}</div><div class="l">Casos por revisar</div></div>
+    <div class="stat"><div class="n">${d.contact_requests}</div><div class="l">Pidieron contacto</div></div></div>
+  ${mindiAlertsCard(d)}
+  <div class="cols"><div class="card"><h2>Requieren atención</h2><p class="muted small" style="margin-bottom:8px">Prioridad alta o solicitud de contacto, aún sin revisar.</p>
+    ${d.attention.length?d.attention.map(personRow).join(''):'<p class="muted" style="padding:14px 0">Todo al día. No hay casos pendientes de atención.</p>'}
+    <div style="margin-top:10px"><button class="btn soft sm" data-act="go" data-tab="students">Ver todos los estudiantes</button></div></div>
+  <div><div class="card"><h2>Nivel de estrés</h2><p class="muted small" style="margin-bottom:12px">Último registro de cada estudiante.</p>
+    <div class="stack" role="img" aria-label="Distribución del nivel de estrés">${[0,1,2].map(k=>`<i class="s${k}" style="width:${t[k]/tot*100}%"></i>`).join('')}</div>
+    <div class="legend">${[0,1,2].map(k=>`<span style="--c:var(--${['mint','sky','rose'][k]}-s)">${STRESS[k]} <b>${t[k]}</b></span>`).join('')}</div></div>
+  <div class="card"><h2>Por ciclo</h2><p class="muted small" style="margin-bottom:6px">Atención: <span class="pill alto">prioritaria</span> <span class="pill medio">seguimiento</span> <span class="pill bajo">habitual</span></p>
+    ${d.by_ciclo.length?d.by_ciclo.map(c=>`<div class="cic"><span>${c.ciclo?'Ciclo '+c.ciclo:'Sin ciclo'}</span><div class="stack" style="width:${Math.max(18,c.total/maxC*100)}%"><i class="s2" style="width:${c.alto/c.total*100}%"></i><i class="sx" style="width:${c.medio/c.total*100}%"></i><i class="s0" style="width:${c.bajo/c.total*100}%"></i></div><b>${c.total}</b></div>`).join(''):'<p class="muted">Aún sin datos.</p>'}</div></div></div>
+  <div class="card"><h2>Encuestas por día</h2><div class="days">${d.trend.length?d.trend.map(x=>`<div class="day"><i style="height:${Math.max(4,100*x.total/maxD)}px"></i>${esc(x.day.slice(5))}<br><b>${x.total}</b></div>`).join(''):'<p class="muted">Todavía no hay registros.</p>'}</div></div>
+  <div class="notice info">Los niveles sirven para priorizar el acompañamiento; no son diagnósticos. La interpretación y la intervención corresponden al profesional.</div>`;
+}
+const personRow=s=>`<button class="person" data-act="open" data-id="${s.student_id}">${avatar(s.name)}<span><span class="nm">${esc(s.name)}</span><br><span class="sub">${s.ciclo?'Ciclo '+s.ciclo:'Ciclo —'}${s.carrera?' · '+esc(s.carrera):''}</span></span>
+    <span class="end">${s.wants_contact?'<span class="pill ask">Pidió contacto</span>':''}${s.checkin_id?stressPill(s.predicted_class):'<span class="pill none">Sin encuesta</span>'}</span></button>`;
+ACT.open=el=>go('student',+el.dataset.id);
+
+async function psychStudents(){
+  P.students=await api('/api/students');
+  const ciclos=[...new Set(P.students.map(s=>s.ciclo).filter(Boolean))].sort((a,b)=>a-b), f=P.flt;
+  $('#main').innerHTML=`<div class="pagehead"><h1>Estudiantes</h1><p>Haz clic en un estudiante para ver sus respuestas, su nivel de estrés y un plan de acción sugerido.</p></div>
+  <div class="card"><div class="filters">
+    <div class="field"><label for="fq">Buscar</label><input id="fq" value="${esc(f.q)}" placeholder="Nombre, usuario o carrera"></div>
+    <div class="field"><label for="fl">Atención</label><select id="fl"><option value="todos">Todas</option><option value="alto">Prioritaria</option><option value="medio">Seguimiento</option><option value="bajo">Habitual</option></select></div>
+    <div class="field"><label for="fc">Ciclo</label><select id="fc"><option value="todos">Todos</option>${ciclos.map(c=>`<option value="${c}">Ciclo ${c}</option>`).join('')}</select></div>
+    <div class="field"><label for="fs">Estado</label><select id="fs"><option value="todos">Todos</option><option value="pendiente">Por revisar</option><option value="revisado">Revisados</option><option value="sin">Sin encuesta</option></select></div>
+    <button class="btn soft" data-act="export">Exportar CSV</button></div>
+  <div class="tablewrap"><table><thead><tr><th>Estudiante</th><th>Ciclo</th><th>Carrera</th><th>Último registro</th><th>Nivel de estrés</th><th>Atención</th><th>Estado</th></tr></thead><tbody id="rows"></tbody></table></div></div>`;
+  $('#fl').value=f.level;$('#fc').value=f.ciclo;$('#fs').value=f.status;
+  const upd=()=>{f.q=$('#fq').value;f.level=$('#fl').value;f.ciclo=$('#fc').value;f.status=$('#fs').value;drawRows()};
+  ['fq','fl','fc','fs'].forEach(id=>$('#'+id).addEventListener('input',upd));
+  drawRows();
+}
+function drawRows(){
+  const body=$('#rows'); if(!body)return; const f=P.flt, q=f.q.trim().toLowerCase();
+  const rows=P.students.filter(s=>(!q||(s.name+' '+s.username+' '+s.carrera).toLowerCase().includes(q))
+    &&(f.level==='todos'||s.alert_level===f.level)&&(f.ciclo==='todos'||String(s.ciclo)===f.ciclo)
+    &&(f.status==='todos'||(f.status==='sin'?!s.checkin_id:f.status==='pendiente'?s.reviewed===false:s.reviewed===true)));
+  body.innerHTML=rows.map(s=>`<tr data-act="open" data-id="${s.student_id}"><td><div class="who2">${avatar(s.name)}<div><button data-act="open" data-id="${s.student_id}">${esc(s.name)}</button><div class="muted small">@${esc(s.username)}</div></div></div></td>
+    <td>${s.ciclo?'Ciclo '+s.ciclo:'—'}</td><td>${esc(s.carrera)||'—'}</td><td>${s.last_at?esc(fDT(s.last_at)):'—'}</td>
+    <td>${s.checkin_id?stressPill(s.predicted_class)+(s.trend===1?' <span class="trend up" title="Subió desde el registro anterior">↑ subió</span>':s.trend===-1?' <span class="trend down" title="Bajó desde el registro anterior">↓ bajó</span>':''):'<span class="pill none">Sin encuesta</span>'}${s.wants_contact?' <span class="pill ask">Pidió contacto</span>':''}</td>
+    <td>${s.alert_level?alertPill(s.alert_level):'—'}</td><td>${s.reviewed===null?'—':s.reviewed?'Revisado':'<b>Por revisar</b>'}</td></tr>`).join('')
+    ||'<tr><td colspan="7" class="muted" style="text-align:center;padding:26px">No hay estudiantes con esos filtros.</td></tr>';
+}
+ACT.export=async()=>{try{const b=await api('/api/export.csv');const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='mindreset_registros.csv';a.click();URL.revokeObjectURL(a.href)}catch(e){toast(e.message)}};
+
+async function psychDetail(keep){P.D=await api('/api/students/'+arg); if(!keep)P.sel=0; drawDetail()}
+function drawDetail(){
+  const {student:s,checkins:cs}=P.D, c=cs[P.sel];
+  const head=`<button class="back" data-act="go" data-tab="students">‹ Volver a estudiantes</button>`;
+  if(!c){$('#main').innerHTML=head+`<div class="card"><div class="profile">${avatar(s.name,true)}<div><h1>${esc(s.name)}</h1><p class="muted">${s.ciclo?'Ciclo '+s.ciclo:''}${s.carrera?' · '+esc(s.carrera):''} · @${esc(s.username)}</p></div></div><p class="muted" style="margin-top:16px">Aún no ha completado la encuesta.</p></div>`;return}
+  const pr=c.probabilities,pc=['mint','sky','rose'];
+  $('#main').innerHTML=head+`
+  <div class="card"><div class="row"><div class="profile">${avatar(s.name,true)}<div><h1>${esc(s.name)}</h1>
+      <p class="muted">${s.ciclo?'Ciclo '+s.ciclo:'Ciclo —'}${s.carrera?' · '+esc(s.carrera):''} · @${esc(s.username)}</p>
+      <p class="muted small">${cs.length} encuesta${cs.length>1?'s':''} · última: ${esc(fDT(cs[0].created_at))}</p></div></div>
+    <div>${alertPill(c.alert_level)} <span class="pill ${c.reviewed?'c0':'none'}">${c.reviewed?'Revisado':'Por revisar'}</span></div></div></div>
+  ${c.wants_contact?'<div class="ask-banner">🤝 Esta persona pidió que el servicio de psicología la contacte.</div>':''}
+  ${cs.length>1?`<div class="picker" role="group" aria-label="Elegir encuesta">${cs.map((x,i)=>`<button class="${i===P.sel?'on':''}" data-act="pick" data-i="${i}">${esc(fDate(x.created_at))} · ${esc(x.label)}</button>`).join('')}</div>`:''}
+  <div class="detail"><div>
+    <div class="card"><h2>Nivel de estrés</h2><div class="lvl lvl${c.predicted_class}"><span class="small" style="font-weight:700">${esc(fDT(c.created_at))}</span><div class="bigl">${esc(c.label)}</div><p>${esc(c.description)}</p>
+      ${c.adjusted?`<div class="adjust"><b>Ajustado por las respuestas.</b> El modelo indicó «${esc(c.model_label)}», pero se elevó porque: ${c.signals.map(esc).join('; ')}.</div>`:''}</div>
+      <p class="small muted" style="margin-bottom:4px">Probabilidad según el modelo</p>
+      ${[0,1,2].map(k=>`<div class="pbar"><span>${STRESS[k]}</span><div class="tr"><i style="width:${(pr[k]||0)*100}%;background:var(--${pc[k]}-s)"></i></div><b>${Math.round((pr[k]||0)*100)}%</b></div>`).join('')}
+      <p class="small muted" style="margin-top:10px">Resultado orientativo de un modelo académico. No es un diagnóstico.</p></div>
+    <div class="card"><h2>Respuestas de la encuesta</h2>${c.answers_readable.length?`<div class="qlist">${c.answers_readable.map(a=>`<div class="qitem"><div class="q">${esc(a.question)}${a.feeds_model?'<span class="tag">alimenta el modelo</span>':''}</div><div class="a">${esc(a.answer)}<small>${esc(a.hint)}</small></div></div>`).join('')}</div>`:'<p class="muted">Registro anterior sin detalle de respuestas.</p>'}</div>
+    ${cs.length>1?`<div class="card"><h2>Evolución</h2><p class="muted small">Toca un punto para ver esa encuesta.</p>${evoChart(cs)}</div>`:''}
+  </div><div>
+    <div class="card"><h2>Plan de acción sugerido</h2><p class="muted small" style="margin-bottom:12px">Ideas para considerar, sin ser invasivas. Tú decides si intervenir y cómo.</p>
+      <div class="plan">${c.plan.map(a=>`<div class="act ${a.tone}"><span class="ic"></span><div><b>${esc(a.title)}</b><span class="t">${esc(a.detail)}</span></div></div>`).join('')}</div></div>
+    <div class="card"><h2>Mensaje de acercamiento</h2><p class="muted small" style="margin-bottom:8px">Sugerencia editable. Evita mencionar respuestas concretas en el primer contacto.</p>
+      <textarea class="input" id="msgtxt" rows="7">${esc(P.D.suggested_message)}</textarea>
+      <div style="margin-top:10px"><button class="btn soft sm" data-act="copy">Copiar mensaje</button></div></div>
+    <div class="card"><h2>Notas de seguimiento</h2><textarea class="input" id="note" rows="4" maxlength="2000" placeholder="Ej.: Escribí por mensaje el lunes; quedamos en conversar el jueves.">${esc(c.psych_note||'')}</textarea>
+      <div class="row" style="margin-top:10px;justify-content:flex-start"><button class="btn sm" data-act="save-note" data-id="${c.id}">Guardar nota</button>
+      <button class="btn ${c.reviewed?'ghost':'mint'} sm" data-act="review" data-id="${c.id}" data-v="${c.reviewed?0:1}">${c.reviewed?'Desmarcar revisado':'Marcar como revisado'}</button></div>
+      <p class="muted small" style="margin-top:12px">Si identificas riesgo inmediato, sigue el protocolo institucional de emergencia.</p></div>
+  </div></div>`;
+}
+function evoChart(cs){
+  const pts=[...cs].reverse(), W=560, H=170, L=74, R=20, n=pts.length, y=c=>[128,78,28][c], x=i=>n===1?(L+W-R)/2:L+i*((W-L-R)/(n-1));
+  const col=['#9FD9BD','#A7CBF0','#EFA9BF'], selId=cs[P.sel].id;
+  return `<div style="overflow-x:auto"><svg class="evo" viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Evolución del nivel de estrés">
+    ${[0,1,2].map(c=>`<line x1="${L-8}" x2="${W-R+8}" y1="${y(c)}" y2="${y(c)}" style="stroke:var(--line)" stroke-dasharray="3 4"/><text x="4" y="${y(c)+4}">${STRESS[c]}</text>`).join('')}
+    <polyline fill="none" stroke="#8F68E8" stroke-width="2.5" stroke-linejoin="round" points="${pts.map((p,i)=>`${x(i)},${y(p.predicted_class)}`).join(' ')}"/>
+    ${pts.map((p,i)=>`<g><circle data-act="pick-id" data-id="${p.id}" cx="${x(i)}" cy="${y(p.predicted_class)}" r="${p.id===selId?10:7}" fill="${col[p.predicted_class]}" style="stroke:var(${p.id===selId?'--lav-ink':'--surface'})" stroke-width="3"><title>${esc(fDate(p.created_at))}: ${esc(p.label)}</title></circle><text x="${x(i)}" y="${H-8}" text-anchor="middle">${esc(fDate(p.created_at))}</text></g>`).join('')}</svg></div>`;
+}
+ACT.pick=el=>{P.sel=+el.dataset.i;drawDetail()};
+ACT['pick-id']=el=>{const i=P.D.checkins.findIndex(c=>c.id===+el.dataset.id);if(i>=0){P.sel=i;drawDetail()}};
+ACT.copy=async()=>{const t=$('#msgtxt');try{await navigator.clipboard.writeText(t.value)}catch{t.select();document.execCommand('copy')}toast('Mensaje copiado')};
+ACT['save-note']=async el=>{el.disabled=true;try{await api('/api/checkins/'+el.dataset.id,{method:'PATCH',body:JSON.stringify({psych_note:$('#note').value})});toast('Nota guardada');await psychDetail(true)}catch(e){toast(e.message);el.disabled=false}};
+ACT.review=async el=>{el.disabled=true;try{await api('/api/checkins/'+el.dataset.id,{method:'PATCH',body:JSON.stringify({reviewed:el.dataset.v==='1',psych_note:$('#note').value})});toast(el.dataset.v==='1'?'Marcado como revisado':'Marcado como pendiente');await psychDetail(true)}catch(e){toast(e.message);el.disabled=false}};
+
+if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('/static/sw.js').catch(()=>{}));
+</script>
+<script src="/static/v3.js?v=3"></script>
+</body>
+</html>
