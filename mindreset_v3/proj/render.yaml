@@ -1,0 +1,24 @@
+# Blueprint de Render para MindReset (se lee desde la raíz del repositorio)
+services:
+  - type: web
+    name: mindreset
+    runtime: docker
+    plan: free
+    region: ohio
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: PORT
+        value: "8000"
+      - key: MINDRESET_HIDE_DEMO
+        value: "0"
+      # Los siguientes valores secretos los escribes tú en Render (no se guardan en GitHub):
+      - key: MINDRESET_SHEETS_URL
+        sync: false
+      - key: MINDRESET_SHEETS_SECRET
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: MINDRESET_APP_URL
+        sync: false
